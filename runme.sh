@@ -4,7 +4,7 @@
 kubectl create namespace argocd
 
 # deploy argocd
-until kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml; do sleep 2; done
+until kubectl apply -k https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/kustomize/instances/overlays/platform/argocd/kustomization.yaml; do sleep 2; done
 
 # wait for argo cluster rollout
 ./scripts/wait-for-rollout.sh deployment argocd-server argocd 10
