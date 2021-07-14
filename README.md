@@ -1,4 +1,5 @@
 # solo-testbed
+This repo is meant to demonstrate how to deploy and manage solo.io products with a declarative GitOps based approach using argoCD
  
 ## Prerequisites
 - Kubernetes clusters up and authenticated to kubectl
