@@ -27,4 +27,6 @@ kubectl --context ${CONTEXT} delete crd accesslogrecords.observability.enterpris
 kubectl --context ${CONTEXT} delete crd applications.argoproj.io appprojects.argoproj.io
 # istio
 kubectl --context ${CONTEXT} delete crd authorizationpolicies.security.istio.io destinationrules.networking.istio.io envoyfilters.networking.istio.io gateways.networking.istio.io istiooperators.install.istio.io peerauthentications.security.istio.io requestauthentications.security.istio.io serviceentries.networking.istio.io sidecars.networking.istio.io virtualservices.networking.istio.io workloadentries.networking.istio.io workloadgroups.networking.istio.io
+# gloo-edge
+kubectl --context ${CONTEXT} delete crd proxies.gloo.solo.io settings.gloo.solo.io upstreamgroups.gloo.solo.io upstreams.gloo.solo.io 
 

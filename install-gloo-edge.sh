@@ -57,3 +57,6 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 
 # deploy virtualservice
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/gloo-edge/virtualservices/bookinfo-vs.yaml
+
+# get bookinfo URL
+echo access app here: "http://$(kubectl --context ${CONTEXT} -n gloo-system get svc gateway-proxy -o jsonpath='{.status.loadBalancer.ingress[0].ip}')/productpage"
