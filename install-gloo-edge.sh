@@ -33,10 +33,10 @@ until [ $(kubectl -n gloo-system get pods -o jsonpath='{range .items[*].status.c
 done
 
 # deploy bookinfo-v1 app
-kubectl create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/frontend/bookinfo-v1-app.yaml
+kubectl create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/frontend/bookinfo-v1-edge.yaml
 
 # deploy bookinfo-v2 app
-kubectl create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/frontend/bookinfo-beta-app.yaml
+kubectl create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/frontend/bookinfo-beta-edge.yaml
 
 # deploy virtualservice
 kubectl create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/gloo-edge/virtualservices/bookinfo-vs.yaml
