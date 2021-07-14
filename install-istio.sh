@@ -27,8 +27,8 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 ### check istio-operator deployment status
 ./scripts/wait-for-rollout.sh deployment istio-operator istio-operator 10
 
-# deploy istio argo application
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/istio/workshop/cluster1.yaml
+# deploy istio argo application (default profile)
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/istio/profiles/istio-default.yaml
 
 ### check istio deployment status
 ./scripts/wait-for-rollout.sh deployment istio-ingressgateway istio-system 10
