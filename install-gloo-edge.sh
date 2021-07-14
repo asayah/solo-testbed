@@ -17,24 +17,6 @@ fi
 # use context
 kubectl config use-context ${CONTEXT}
 
-# create argocd namespace
-kubectl --context ${CONTEXT} create namespace argocd
-
-# deploy argocd
-until kubectl --context ${CONTEXT} apply -k https://github.com/ably77/solo-testbed-apps.git/kustomize/instances/overlays/platform/argocd/; do sleep 2; done
-
-# wait for argo cluster rollout
-./scripts/wait-for-rollout.sh deployment argocd-server argocd 10
-
-# port forward
-#kubectl port-forward svc/argocd-server -n argocd 8080:443
-
-# get the argocd password
-#kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo
-
-# open port-forward
-#open http://localhost:8080
-
 # deploy gloo-edge-oss-helm argo application
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/gloo-edge/gloo-edge-oss-helm.yaml
 
@@ -59,4 +41,7 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/gloo-edge/virtualservices/bookinfo-vs.yaml
 
 # get bookinfo URL
+echo for kind deployments:
 echo access app here: "http://$(kubectl --context ${CONTEXT} -n gloo-system get svc gateway-proxy -o jsonpath='{.status.loadBalancer.ingress[0].ip}')/productpage"
+echo for cloud deployments:
+echo access app here: "http://$(kubectl --context ${CONTEXT} -n gloo-system get svc gateway-proxy -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')/productpage"

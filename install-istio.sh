@@ -40,4 +40,7 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 ./scripts/wait-for-rollout.sh deployment productpage-v1 bookinfo-v1 10
 
 # get istio URL
+echo for kind deployments:
 echo access bookinfo app here: "http://$(kubectl --context ${CONTEXT} -n istio-system get svc istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')/productpage"
+echo for cloud deployments:
+echo access bookinfo app here: "http://$(kubectl --context ${CONTEXT} -n istio-system get svc istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')/productpage"

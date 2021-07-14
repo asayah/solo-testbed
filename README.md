@@ -52,9 +52,19 @@ access gloo mesh dashboard at `http://localhost:8090`:
 kubectl --context ${MGMT} port-forward -n gloo-mesh svc/dashboard 8090
 ```
 
-### bookinfo
+### access bookinfo on istio-ingressgateway
 Access the bookinfo app with the command below:
 ```
+echo for kind deployments:
+echo access bookinfo app here: "http://$(kubectl --context ${CONTEXT} -n istio-system get svc istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')/productpage"
+echo for cloud deployments:
 echo access bookinfo app here: "http://$(kubectl --context ${CONTEXT} -n istio-system get svc istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')/productpage"
+```
 
+### access bookinfo app on gloo-edge
+```
+echo for kind deployments:
+echo access app here: "http://$(kubectl --context ${CONTEXT} -n gloo-system get svc gateway-proxy -o jsonpath='{.status.loadBalancer.ingress[0].ip}')/productpage"
+echo for cloud deployments:
+echo access app here: "http://$(kubectl --context ${CONTEXT} -n gloo-system get svc gateway-proxy -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')/productpage"
 ```
