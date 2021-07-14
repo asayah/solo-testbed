@@ -5,7 +5,7 @@ CONTEXT=$1
 ### check to make sure that arguments were set before taking off
 if [[ ${CONTEXT} == "" ]]
 then
-  echo "Proper usage is ./install-script.sh <context>"
+  echo "Missing arguments. Proper usage is ./install-script.sh <context>"
   echo "example:"
   echo "./install-argocd.sh mgmt"
   echo "would install argocd on the mgmt context"
