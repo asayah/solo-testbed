@@ -23,4 +23,4 @@ kubectl create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/mai
 ./scripts/wait-for-rollout.sh deployment productpage-v1 bookinfo-v1 10
 
 # get istio URL
-echo "http://$(kubectl -n istio-system get svc istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')/productpage"
+echo access bookinfo app here: "http://$(kubectl -n istio-system get svc istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')/productpage"
