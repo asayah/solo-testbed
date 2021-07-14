@@ -4,29 +4,37 @@ This repo is meant to demonstrate how to deploy and manage solo.io products with
 ## Prerequisites
 - Kubernetes clusters up and authenticated to kubectl
 
+### kubectl contexts
+Since we will potentially be using multiple clusters/contexts, it is useful to rename your contexts for a better experience
+```
+kubectl config get-contexts
+kubectl config rename-contexts <current_name> <new_name>
+export CONTEXT=<new_name>
+```
+
 ## Bootstrap argoCD
 argoCD is required to be deployed on each cluster if you want to deploy the applications below
 
 To install argoCD:
 ```
-./install-argocd.sh <context>
+./install-argocd.sh ${CONTEXT}
 ```
 
 ## Deploy argoCD apps
 
 To install gloo-edge:
 ```
-./install-gloo-edge.sh <context>
+./install-gloo-edge.sh ${CONTEXT}
 ```
 
 To install gloo-mesh:
 ```
-./install-gloo-mesh.sh <context>
+./install-gloo-mesh.sh ${CONTEXT}
 ```
 
 To install istio:
 ```
-./install-istio.sh <context>
+./install-istio.sh ${CONTEXT}
 ```
 
 ### access argoCD UI
