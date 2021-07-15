@@ -27,6 +27,9 @@ kubectl --context ${CONTEXT} delete ns gloo-system
 kubectl --context ${CONTEXT} delete ns gloo-mesh
 kubectl --context ${CONTEXT} delete ns istio-system
 kubectl --context ${CONTEXT} delete ns istio-operator
+kubectl --context ${CONTEXT} delete ns knative-operator
+kubectl --context ${CONTEXT} delete ns knative-serving
+kubectl --context ${CONTEXT} delete ns knative-eventing
 
 # delete CRDs
 # gloo-mesh
