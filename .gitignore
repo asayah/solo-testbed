@@ -1,2 +1,5 @@
 gloo-mesh-ee-helm.yaml
 install-knative.sh
+1-deploy-istio
+install-istioinaction.sh
+install-observability.sh
