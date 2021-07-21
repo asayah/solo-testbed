@@ -35,14 +35,17 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 # check kiali deployment status 
 ../scripts/wait-for-rollout.sh deployment kiali-operator-helm istio-system 10
 
-# deploy httpbin app
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/frontend/httpbin-app.yaml
+# create istio enabled httpbin app in default namespace to run curl commands to
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/frontend/injected-httpbin-app.yaml
 
 # create sleep app in default namespace to run curl commands from
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/frontend/sleep-default-ns.yaml
 
-# create istio enabled httpbin app in default namespace to run curl commands to
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/frontend/injected-httpbin-app.yaml
+# check httpbin deployment status 
+../scripts/wait-for-rollout.sh deployment httpbin istio-system 10
+
+# check sleep deployment status 
+../scripts/wait-for-rollout.sh deployment sleep default 5
 
 # curl 
 for i in {1..50}; do kubectl exec deploy/sleep -n default -- curl http://httpbin.default:8000/headers; done
