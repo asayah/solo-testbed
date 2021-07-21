@@ -22,6 +22,8 @@ kubectl --context ${CONTEXT} delete -f https://raw.githubusercontent.com/ably77/
 #kubectl --context ${CONTEXT} delete -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/observability/kube-prometheus-15-2-0.yaml
 kubectl --context ${CONTEXT} delete -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/istio/workshop/istioinaction/istio-control-plane-1-9-5.yaml
 kubectl --context ${CONTEXT} delete -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/istio/workshop/istioinaction/istio-gateway-1-9-5.yaml
+kubectl --context ${CONTEXT} delete -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/knative/kn-serving.yaml
+
 
 # uninstall the rest of the argo apps
 kubectl --context ${CONTEXT} delete applications -n argocd --all
