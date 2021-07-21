@@ -21,7 +21,7 @@ kubectl config use-context ${CONTEXT}
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/observability/kube-prometheus-15-2-0.yaml
 
 # check kube grafana deployment status as this usually completes last
-./scripts/wait-for-rollout.sh deployment prometheus-operator-helm-grafana prometheus 10
+../scripts/wait-for-rollout.sh deployment prometheus-operator-helm-grafana prometheus 10
 
 # deploy istio grafana monitoring dashboard config
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/observability/istio-monitoring.yaml
@@ -33,7 +33,7 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/observability/kiali-instance-1-29-1.yaml
 
 # check kiali deployment status 
-./scripts/wait-for-rollout.sh deployment kiali-operator-helm istio-system 10
+../scripts/wait-for-rollout.sh deployment kiali-operator-helm istio-system 10
 
 # deploy httpbin app
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/frontend/httpbin-app.yaml
