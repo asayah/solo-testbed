@@ -18,14 +18,14 @@ fi
 kubectl config use-context ${CONTEXT}
 
 # Install operator app-of-apps
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istioinaction/operator/meta/meta-operator-aoa.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istioinaction/operator/meta/meta-operator-app.yaml
 
 # wait for important operators
 ### check istio-operator deployment status
 ../scripts/wait-for-rollout.sh deployment istio-operator istio-operator 10
 
 # Install platform app-of-apps
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istioinaction/platform/meta/meta-platform-aoa.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istioinaction/platform/meta/meta-platform-app.yaml
 
 # wait for platform
 ### check istio control plane deployment status
@@ -35,7 +35,7 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 ../scripts/wait-for-rollout.sh deployment prometheus-operator-helm-grafana prometheus 10
 
 # Install frontend app-of-apps
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istioinaction/frontend/meta/meta-frontend-aoa.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istioinaction/frontend/meta/meta-frontend-app.yaml
 
 ### check istio ingress gateway deployment status
 ../scripts/wait-for-rollout.sh deployment istio-ingressgateway istio-ingress 10
