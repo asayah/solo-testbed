@@ -18,7 +18,7 @@ fi
 kubectl config use-context ${CONTEXT}
 
 # deploy gloo-edge-oss-helm argo application
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/gloo-edge/gloo-edge-oss-helm.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/gloo-edge/gloo-edge-oss-helm.yaml
 
 ### check gloo-edge deployment status
 until kubectl --context ${CONTEXT} get ns gloo-system
@@ -32,13 +32,13 @@ until [ $(kubectl --context ${CONTEXT} -n gloo-system get pods -o jsonpath='{ran
 done
 
 # deploy bookinfo-v1 app
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/frontend/bookinfo-v1-edge.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/bookinfo-v1-edge.yaml
 
 # deploy bookinfo-v2 app
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/frontend/bookinfo-beta-edge.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/bookinfo-beta-edge.yaml
 
 # deploy virtualservice
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/gloo-edge/virtualservices/bookinfo-vs.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/gloo-edge/virtualservices/bookinfo-vs.yaml
 
 # get bookinfo URL
 echo for kind deployments:

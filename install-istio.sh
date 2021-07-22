@@ -22,31 +22,33 @@ kubectl config use-context ${CONTEXT}
 #curl -L https://istio.io/downloadIstio | sh -
 
 # deploy istio-operator argo application
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/istio/workshop/istioinaction/istio-operator-1-9-5.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/istio/operator/istio-operator-1-9-5.yaml
 
 ### check istio-operator deployment status
 ./scripts/wait-for-rollout.sh deployment istio-operator istio-operator 10
 
 # deploy istio argo application (default profile)
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/istio/profiles/istio-default.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/istio/profiles/istio-default.yaml
 
 ### check istio deployment status
 ./scripts/wait-for-rollout.sh deployment istio-ingressgateway istio-system 10
 
 ### deploy bookinfo app
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/frontend/bookinfo-v1-mesh.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/bookinfo-v1-mesh.yaml
 
 ### check bookinfo-v1 deployment status
 ./scripts/wait-for-rollout.sh deployment productpage-v1 bookinfo-v1 10
 
 # create sleep app in default namespace to run curl commands from
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/frontend/sleep-default-ns.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/sleep-default-ns.yaml
 
 # check sleep deployment status 
-../scripts/wait-for-rollout.sh deployment sleep default 5
+./scripts/wait-for-rollout.sh deployment sleep default 5
 
 # curl 
 for i in {1..10}; do kubectl exec deploy/sleep -n default -- curl http://productpage.bookinfo-v1:9080/productpage; done
+
+for i in {1..10}; do curl http://$(kubectl --context ${CONTEXT} -n istio-system get svc istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')/productpage; done
 
 # get istio URL
 echo for kind deployments:

@@ -18,37 +18,39 @@ fi
 kubectl config use-context ${CONTEXT}
 
 # deploy kube-prometheus (helm) argo application 
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/observability/kube-prometheus-15-2-0.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/observability/kube-prometheus-15-2-0.yaml
 
 # check kube grafana deployment status as this usually completes last
 ../scripts/wait-for-rollout.sh deployment prometheus-operator-helm-grafana prometheus 10
 
 # deploy istio grafana monitoring dashboard config
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/observability/istio-monitoring.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/observability/istio-monitoring.yaml
 
 # deploy kiali operator (helm) argo application 
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/observability/kiali-operator-1-29-1.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/observability/kiali-operator-1-29-1.yaml
 
 # deploy kiali instance argo application 
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/observability/kiali-instance-1-29-1.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/observability/kiali-instance-1-29-1.yaml
 
 # check kiali deployment status 
 ../scripts/wait-for-rollout.sh deployment kiali-operator-helm istio-system 10
 
-# create istio enabled httpbin app in default namespace to run curl commands to
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/frontend/injected-httpbin-app.yaml
+# this is for regular deployment of istio
+# create a label in the default namespace with istio-injection=enabled and deploy httpbin app
+kubectl --context ${CONTEXT} label ns httpbin istio-injection=enabled
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/httpbin-app.yaml
 
 # create sleep app in default namespace to run curl commands from
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/frontend/sleep-default-ns.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/sleep-default-ns.yaml
 
 # check httpbin deployment status 
-../scripts/wait-for-rollout.sh deployment httpbin istio-system 10
+../scripts/wait-for-rollout.sh deployment httpbin httpbin 10
 
 # check sleep deployment status 
 ../scripts/wait-for-rollout.sh deployment sleep default 5
 
 # curl 
-for i in {1..50}; do kubectl exec deploy/sleep -n default -- curl http://httpbin.default:8000/headers; done
+for i in {1..10}; do kubectl exec deploy/sleep -n default -- curl http://httpbin.httpbin:8000/headers; done
 
 # port-forward commands
 echo To reach Grafana UI:
