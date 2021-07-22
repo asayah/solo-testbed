@@ -37,6 +37,7 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 
 # this is for regular deployment of istio
 # create a label in the default namespace with istio-injection=enabled and deploy httpbin app
+kubectl --context ${CONTEXT} create ns httpbin
 kubectl --context ${CONTEXT} label ns httpbin istio-injection=enabled
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/httpbin-app.yaml
 
@@ -50,7 +51,7 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 ../scripts/wait-for-rollout.sh deployment sleep default 5
 
 # curl 
-for i in {1..10}; do kubectl exec deploy/sleep -n default -- curl http://httpbin.httpbin:8000/headers; done
+for i in {1..100}; do kubectl exec deploy/sleep -n default -- curl http://httpbin.httpbin:8000/headers; done
 
 # port-forward commands
 echo To reach Grafana UI:

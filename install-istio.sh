@@ -36,11 +36,11 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 ### deploy bookinfo app
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/bookinfo-v1-mesh.yaml
 
-### check bookinfo-v1 deployment status
-./scripts/wait-for-rollout.sh deployment productpage-v1 bookinfo-v1 10
-
 # create sleep app in default namespace to run curl commands from
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/sleep-default-ns.yaml
+
+### check bookinfo-v1 deployment status
+./scripts/wait-for-rollout.sh deployment productpage-v1 bookinfo-v1 10
 
 # check sleep deployment status 
 ./scripts/wait-for-rollout.sh deployment sleep default 5
