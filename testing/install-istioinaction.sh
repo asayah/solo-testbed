@@ -17,56 +17,38 @@ fi
 # use context
 kubectl config use-context ${CONTEXT}
 
-# deploy istio-operator argo application
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istioinaction/istio-operator-1-9-5.yaml
+# Install operator app-of-apps
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istioinaction/testing/operator/meta/meta-operator-aoa.yaml
 
+# wait for important operators
 ### check istio-operator deployment status
 ../scripts/wait-for-rollout.sh deployment istio-operator istio-operator 10
 
-# deploy istio control plane argo application (istioinaction workshop)
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istioinaction/istio-control-plane-1-9-5.yaml
+# Install platform app-of-apps
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istioinaction/testing/platform/meta/meta-platform-aoa.yaml
 
+# wait for platform
 ### check istio control plane deployment status
 ../scripts/wait-for-rollout.sh deployment istiod-1-9-5 istio-system 10
-
-# deploy istio ingress gateway argo application (istioinaction workshop)
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istioinaction/istio-gateway-1-9-5.yaml
-
-### check istio ingress gateway deployment status
-../scripts/wait-for-rollout.sh deployment istio-ingressgateway istio-ingress 10
-
-# deploy kube-prometheus (helm) argo application 
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/observability/kube-prometheus-15-2-0.yaml
 
 # check kube grafana deployment status as this usually completes last
 ../scripts/wait-for-rollout.sh deployment prometheus-operator-helm-grafana prometheus 10
 
-# deploy istio grafana monitoring dashboard config
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/observability/istio-monitoring.yaml
+# Install frontend app-of-apps
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istioinaction/testing/frontend/meta/meta-frontend-aoa.yaml
 
-# deploy kiali operator (helm) argo application 
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/observability/kiali-operator-1-29-1.yaml
+### check istio ingress gateway deployment status
+../scripts/wait-for-rollout.sh deployment istio-ingressgateway istio-ingress 10
 
-# deploy kiali instance argo application 
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/observability/kiali-instance-1-29-1.yaml
-
-# check kiali deployment status 
-../scripts/wait-for-rollout.sh deployment kiali-operator-helm istio-system 10
-
-# deploy web-api argo application (istioinaction workshop)
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istioinaction/web-api-istioinaction.yaml
-
-# create sleep app in default namespace to run curl commands from
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/sleep-default-ns.yaml
-
+# wait for apps
 ### check web-api deployment status
-../scripts/wait-for-rollout.sh deployment web-api web-api 10
+../scripts/wait-for-rollout.sh deployment web-api web-api 5
 
 # deploy httpbin-injected application (istioinaction workshop)
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istioinaction/injected-httpbin-app.yaml
 
 ### check httpbin-injected deployment status
-../scripts/wait-for-rollout.sh deployment httpbin httpbin 10
+../scripts/wait-for-rollout.sh deployment httpbin httpbin 5
 
 # check sleep deployment status 
 ../scripts/wait-for-rollout.sh deployment sleep default 5
