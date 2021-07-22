@@ -76,3 +76,8 @@ echo access app here: "http://$(kubectl --context ${CONTEXT} -n gloo-system get 
 echo for cloud deployments:
 echo access app here: "http://$(kubectl --context ${CONTEXT} -n gloo-system get svc gateway-proxy -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')/productpage"
 ```
+
+### port-forward for envoy admin API (gloo edge)
+```
+kubectl port-forward -n gloo-system deploy/gateway-proxy 19000:19000
+```
