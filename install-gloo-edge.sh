@@ -34,6 +34,9 @@ done
 # deploy frontend app-of-apps
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-edge/frontend/meta/meta-frontend-apps.yaml
 
+# deploy virtualservices app-of-apps
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-edge/virtualservice/meta/meta-virtualservices.yaml
+
 # check bookinfo-v1 deployment status 
 ../scripts/wait-for-rollout.sh deployment productpage-v1 bookinfo-v1 5
 
