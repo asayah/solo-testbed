@@ -81,3 +81,21 @@ echo access app here: "http://$(kubectl --context ${CONTEXT} -n gloo-system get 
 ```
 kubectl port-forward -n gloo-system deploy/gateway-proxy 19000:19000
 ```
+
+### important curl commands
+```
+Header match:
+curl -H "Host: petstore.solo.io" -H "header1: value1" $(glooctl proxy url)/all-pets -v
+
+Exact path match:
+curl -H "Host: petstore.solo.io" $(glooctl proxy url)/all-pets -v
+
+Prefix path match:
+curl -H "Host: petstore.solo.io" $(glooctl proxy url)/foo -v
+
+httpbin curl:
+curl -H "Host: httpbin.solo.io" $(glooctl proxy url)/headers -v
+
+bookinfo curl:
+curl $(glooctl proxy url)/productpage -v 
+```
