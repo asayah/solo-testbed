@@ -18,9 +18,9 @@ fi
 kubectl config use-context ${CONTEXT}
 
 # install meshctl CLI
-export GLOO_MESH_VERSION=v1.0.9
-curl -sL https://run.solo.io/meshctl/install | sh -
-export PATH=$HOME/.gloo-mesh/bin:$PATH
+#export GLOO_MESH_VERSION=v1.0.9
+#curl -sL https://run.solo.io/meshctl/install | sh -
+#export PATH=$HOME/.gloo-mesh/bin:$PATH
 
 # deploy gloo-mesh-ee-helm argo application
 # creating from YAML because of sensitive values (license key)
