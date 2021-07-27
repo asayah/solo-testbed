@@ -21,7 +21,7 @@ kubectl config use-context ${CONTEXT}
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/observability/kube-prometheus-15-2-0.yaml
 
 # check kube grafana deployment status as this usually completes last
-../scripts/wait-for-rollout.sh deployment prometheus-operator-helm-grafana prometheus 10
+../../scripts/wait-for-rollout.sh deployment prometheus-operator-helm-grafana prometheus 10
 
 # deploy istio grafana monitoring dashboard config
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/observability/istio-monitoring.yaml
@@ -33,7 +33,7 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/observability/kiali-instance-1-29-1.yaml
 
 # check kiali deployment status 
-../scripts/wait-for-rollout.sh deployment kiali-operator-helm istio-system 10
+../../scripts/wait-for-rollout.sh deployment kiali-operator-helm istio-system 10
 
 # this is for regular deployment of istio
 # create a label in the default namespace with istio-injection=enabled and deploy httpbin app
@@ -45,10 +45,10 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/sleep-default-ns.yaml
 
 # check httpbin deployment status 
-../scripts/wait-for-rollout.sh deployment httpbin httpbin 10
+../../scripts/wait-for-rollout.sh deployment httpbin httpbin 10
 
 # check sleep deployment status 
-../scripts/wait-for-rollout.sh deployment sleep default 5
+../../scripts/wait-for-rollout.sh deployment sleep default 5
 
 # curl 
 for i in {1..100}; do kubectl exec deploy/sleep -n default -- curl http://httpbin.httpbin:8000/headers; done

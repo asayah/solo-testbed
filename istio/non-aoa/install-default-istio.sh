@@ -25,13 +25,13 @@ kubectl config use-context ${CONTEXT}
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/istio/operator/istio-operator-1-9-5.yaml
 
 ### check istio-operator deployment status
-../tools/wait-for-rollout.sh deployment istio-operator istio-operator 10
+../../tools/wait-for-rollout.sh deployment istio-operator istio-operator 10
 
 # deploy istio argo application (default profile)
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/istio/profiles/istio-default.yaml
 
 ### check istio deployment status
-../tools/wait-for-rollout.sh deployment istio-ingressgateway istio-system 10
+../../tools/wait-for-rollout.sh deployment istio-ingressgateway istio-system 10
 
 ### deploy bookinfo app
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/bookinfo-v1-mesh.yaml
@@ -40,10 +40,10 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/sleep-default-ns.yaml
 
 ### check bookinfo-v1 deployment status
-../tools/wait-for-rollout.sh deployment productpage-v1 bookinfo-v1 10
+../../tools/wait-for-rollout.sh deployment productpage-v1 bookinfo-v1 10
 
 # check sleep deployment status 
-../tools/wait-for-rollout.sh deployment sleep default 5
+../../tools/wait-for-rollout.sh deployment sleep default 5
 
 # curl 
 for i in {1..10}; do kubectl exec deploy/sleep -n default -- curl http://productpage.bookinfo-v1:9080/productpage; done
