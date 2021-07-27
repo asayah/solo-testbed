@@ -21,15 +21,7 @@ kubectl config use-context ${CONTEXT}
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-edge/edge/meta/meta-gloo-edge.yaml
 
 ### check gloo-edge deployment status
-until kubectl --context ${CONTEXT} get ns gloo-system
-do
-  sleep 1
-done
-
-until [ $(kubectl --context ${CONTEXT} -n gloo-system get pods -o jsonpath='{range .items[*].status.containerStatuses[*]}{.ready}{"\n"}{end}' | grep false -c) -eq 0 ]; do
-  echo "Waiting for all the gloo-system pods to become ready"
-  sleep 1
-done
+../tools/wait-for-rollout.sh deployment gateway gloo-system 10
 
 # deploy frontend app-of-apps
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-edge/frontend/meta/meta-frontend-apps.yaml
