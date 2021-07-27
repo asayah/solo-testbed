@@ -23,28 +23,29 @@ install-argocd.sh ${CONTEXT}
 
 ## Deploy argoCD apps
 
-To install gloo-edge:
+To install gloo-edge app-of-app:
 ```
 cd gloo-edge
-./install-gloo-edge.sh ${CONTEXT}
+./install-gloo-edge-aoa.sh ${CONTEXT}
 ```
 
 To install gloo-mesh:
 ```
 cd gloo-mesh
-./install-gloo-mesh.sh ${CONTEXT}
+./install-gloo-mesh-oss.sh ${CONTEXT}
+./install-gloo-mesh-ee.sh ${CONTEXT}
 ```
 
-To install default istio:
+To install istio app-of-app:
 ```
 cd istio
-./install-default-istio.sh ${CONTEXT}
+./install-istio-aoa.sh ${CONTEXT}
 ```
 
-To install istioinaction workshop: 
+To install istioinaction workshop app-of-app: 
 ```
-cd istio
-./install-istioinaction.sh ${CONTEXT}
+cd istioinaction-workshop
+./install-istioinaction-aoa.sh ${CONTEXT}
 ```
 
 ### access argoCD UI
