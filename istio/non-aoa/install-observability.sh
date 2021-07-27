@@ -39,10 +39,10 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 # create a label in the default namespace with istio-injection=enabled and deploy httpbin app
 kubectl --context ${CONTEXT} create ns httpbin
 kubectl --context ${CONTEXT} label ns httpbin istio-injection=enabled
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/httpbin-app.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/httpbin/default/httpbin-app.yaml
 
 # create sleep app in default namespace to run curl commands from
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/sleep-default-ns.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/frontend/sleep/default/sleep-default-ns.yaml
 
 # check httpbin deployment status 
 ../../scripts/wait-for-rollout.sh deployment httpbin httpbin 10
