@@ -17,29 +17,34 @@ argoCD is required to be deployed on each cluster if you want to deploy the appl
 
 To install argoCD:
 ```
-./argocd/install-argocd.sh ${CONTEXT}
+cd argocd
+install-argocd.sh ${CONTEXT}
 ```
 
 ## Deploy argoCD apps
 
 To install gloo-edge:
 ```
-./gloo-edge/install-gloo-edge.sh ${CONTEXT}
+cd gloo-edge
+./install-gloo-edge.sh ${CONTEXT}
 ```
 
 To install gloo-mesh:
 ```
-./gloo-mesh/install-gloo-mesh.sh ${CONTEXT}
+cd gloo-mesh
+./install-gloo-mesh.sh ${CONTEXT}
 ```
 
 To install default istio:
 ```
-./istio/install-default-istio.sh ${CONTEXT}
+cd istio
+./install-default-istio.sh ${CONTEXT}
 ```
 
 To install istioinaction workshop: 
 ```
-./istio/install-istioinaction.sh ${CONTEXT}
+cd istio
+./install-istioinaction.sh ${CONTEXT}
 ```
 
 ### access argoCD UI
