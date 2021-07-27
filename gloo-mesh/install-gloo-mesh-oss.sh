@@ -22,12 +22,12 @@ export GLOO_MESH_VERSION=v1.0.9
 curl -sL https://run.solo.io/meshctl/install | sh -
 export PATH=$HOME/.gloo-mesh/bin:$PATH
 
-# deploy gloo-mesh-ee-helm argo application
+# deploy gloo-mesh-oss-helm argo application
 # creating from YAML because of sensitive values (license key)
-kubectl --context ${CONTEXT} create -f gloo-mesh-ee-helm.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/gloo-mesh/gloo-mesh-oss-helm.yaml
 
 ### check gloo-edge deployment status
-../scripts/wait-for-rollout.sh deployment enterprise-networking gloo-mesh 10
+../tools/wait-for-rollout.sh deployment enterprise-networking gloo-mesh 10
 
 # register clusters (CLI Method)
 #SVC=$(kubectl --context ${MGMT} -n gloo-mesh get svc enterprise-networking -o jsonpath='{.status.loadBalancer.ingress[0].ip}')

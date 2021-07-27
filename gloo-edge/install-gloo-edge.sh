@@ -38,10 +38,10 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-edge/virtualservice/meta/meta-virtualservices.yaml
 
 # check bookinfo-v1 deployment status 
-../scripts/wait-for-rollout.sh deployment productpage-v1 bookinfo-v1 5
+../tools/wait-for-rollout.sh deployment productpage-v1 bookinfo-v1 5
 
 # check bookinfo-beta deployment status 
-../scripts/wait-for-rollout.sh deployment productpage-v1 bookinfo-beta 5
+../tools/wait-for-rollout.sh deployment productpage-v1 bookinfo-beta 5
 
 # get bookinfo URL
 echo for kind deployments:
