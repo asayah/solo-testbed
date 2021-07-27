@@ -18,14 +18,18 @@ fi
 kubectl config use-context ${CONTEXT}
 
 # uninstall operator-based instances first
+kubectl --context ${CONTEXT} delete -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istioinaction/platform/active/istio-monitoring.yaml
 kubectl --context ${CONTEXT} delete -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/observability/kiali-instance-1-29-1.yaml
 kubectl --context ${CONTEXT} delete -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/istio/operator/istio-operator-1-9-5.yaml
-kubectl --context ${CONTEXT} delete -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/platform/istio/workshop/istioinaction/istio-gateway-1-9-5.yaml
+kubectl --context ${CONTEXT} delete -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/istio/profiles/workshop/istioinaction/istio-gateway-1-9-5.yaml
 kubectl --context ${CONTEXT} delete -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/instances/platform/knative/kn-serving.yaml
 
 
 # uninstall the rest of the argo apps
 kubectl --context ${CONTEXT} delete applications -n argocd --all
+
+# purge istio using istioctl
+istioctl x uninstall --purge -y
 
 # delete namespaces
 kubectl --context ${CONTEXT} delete ns bookinfo-v1
