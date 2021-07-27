@@ -29,13 +29,5 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 ### check gloo-edge deployment status
 ../tools/wait-for-rollout.sh deployment networking gloo-mesh 10
 
-# register clusters (CLI Method)
-#SVC=$(kubectl --context ${MGMT} -n gloo-mesh get svc enterprise-networking -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-#meshctl cluster register --mgmt-context=${MGMT} --remote-context=${CLUSTER1} --relay-server-address=$SVC:9900 enterprise cluster1 --cluster-domain cluster.local
-#meshctl cluster register --mgmt-context=${MGMT} --remote-context=${CLUSTER2} --relay-server-address=$SVC:9900 enterprise cluster2 --cluster-domain cluster.local
-
-# register clusters (declarative)
-
-
-# access gloo mesh dashboard at localhost:8090
-#kubectl --context ${CONTEXT} port-forward -n gloo-mesh svc/dashboard 8090
+### check to see if components are deployed
+kubectl --context ${CONTEXT} get pods -n gloo-mesh
