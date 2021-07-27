@@ -27,7 +27,7 @@ export PATH=$HOME/.gloo-mesh/bin:$PATH
 kubectl --context ${CONTEXT} create -f gloo-mesh-ee-helm.yaml
 
 ### check gloo-edge deployment status
-./scripts/wait-for-rollout.sh deployment enterprise-networking gloo-mesh 10
+../scripts/wait-for-rollout.sh deployment enterprise-networking gloo-mesh 10
 
 # register clusters (CLI Method)
 #SVC=$(kubectl --context ${MGMT} -n gloo-mesh get svc enterprise-networking -o jsonpath='{.status.loadBalancer.ingress[0].ip}')

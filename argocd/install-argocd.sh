@@ -24,7 +24,7 @@ kubectl --context ${CONTEXT} create namespace argocd
 until kubectl --context ${CONTEXT} apply -k https://github.com/ably77/solo-testbed-apps.git/kustomize/instances/overlays/platform/argocd/; do sleep 2; done
 
 # wait for argo cluster rollout
-./scripts/wait-for-rollout.sh deployment argocd-server argocd 10
+../scripts/wait-for-rollout.sh deployment argocd-server argocd 10
 
 # bcrypt(password)=$2a$10$79yaoOg9dL5MO8pn8hGqtO4xQDejSEVNWAGQR268JHLdrCw6UCYmy
 # password: solo.io
