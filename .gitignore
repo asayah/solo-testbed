@@ -1,4 +1,4 @@
 testing/install-knative.sh
 old
-gloo-edge/non-aoa/gloo-edge-ee-helm.yaml
+gloo-edge/gloo-edge-ee-helm.yaml
 gloo-mesh/gloo-mesh-ee-helm.yaml
