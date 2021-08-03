@@ -66,6 +66,11 @@ echo for cloud deployments:
 echo access bookinfo app here: "http://$(kubectl --context ${CONTEXT} -n istio-system get svc istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')/productpage"
 ```
 
+## Uninstall
+```
+./uninstall.sh ${CONTEXT}
+```
+
 ### useful curl commands
 ```
 Header match:
