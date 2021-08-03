@@ -30,7 +30,7 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 # deploy virtualservices app-of-apps
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-edge/virtualservice/meta/meta-virtualservices.yaml
 
-if [[ $GLOO_FED == "yes" ]]
+if [[ $GLOO_FED == "fed" ]]
   then 
   # deploy gloo-fed-ee
   kubectl --context ${CONTEXT} create -f gloo-fed-ee-helm.yaml
