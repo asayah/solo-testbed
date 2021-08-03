@@ -19,6 +19,18 @@ Once argocd is installed, simply run the script below in order to deploy this ar
 ./install-gloo-edge-aoa.sh ${CONTEXT}
 ```
 
+### register a second cluster to gloo-fed
+```
+export CLUSTER_NAME=
+export CONTEXT=
+glooctl cluster register --cluster-name ${CLUSTER_NAME} --remote-context ${CONTEXT} --remote-namespace gloo-system
+```
+
+### port-forward for gloo-fed console
+```
+kubectl port-forward svc/gloo-fed-console -n gloo-system 8090:8090
+```
+
 ### port-forward for envoy admin API (gloo edge)
 ```
 kubectl port-forward -n gloo-system deploy/gateway-proxy 19000:19000
