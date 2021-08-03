@@ -18,3 +18,17 @@ Once argocd is installed, simply run the script below in order to deploy this ar
 ```
 ./install-gloo-edge-aoa.sh ${CONTEXT}
 ```
+
+### port-forward for envoy admin API (gloo edge)
+```
+kubectl port-forward -n gloo-system deploy/gateway-proxy 19000:19000
+```
+
+### access bookinfo app on gloo-edge
+If the bookinfo app is deployed:
+```
+echo for kind deployments:
+echo access app here: "http://$(kubectl --context ${CONTEXT} -n gloo-system get svc gateway-proxy -o jsonpath='{.status.loadBalancer.ingress[0].ip}')/productpage"
+echo for cloud deployments:
+echo access app here: "http://$(kubectl --context ${CONTEXT} -n gloo-system get svc gateway-proxy -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')/productpage"
+```

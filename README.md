@@ -12,7 +12,7 @@ kubectl config rename-contexts <current_name> <new_name>
 export CONTEXT=<new_name>
 ```
 
-## Bootstrap argoCD
+## First step! - bootstrap argocd
 argoCD is required to be deployed on each cluster if you want to deploy the applications below
 
 To install argoCD:
@@ -21,28 +21,28 @@ cd argocd
 install-argocd.sh ${CONTEXT}
 ```
 
-## Deploy argoCD apps
+## Deploy argoCD demos
 
-To install gloo-edge app-of-app:
+To install gloo-edge demo:
 ```
 cd gloo-edge
 ./install-gloo-edge-aoa.sh ${CONTEXT}
 ```
 
-To install gloo-mesh:
+To install gloo-mesh demo:
 ```
 cd gloo-mesh
 ./install-gloo-mesh-oss.sh ${CONTEXT}
 ./install-gloo-mesh-ee.sh ${CONTEXT}
 ```
 
-To install istio app-of-app:
+To install upstream istio demo:
 ```
 cd istio
 ./install-istio-aoa.sh ${CONTEXT}
 ```
 
-To install istioinaction workshop app-of-app: 
+To install istioinaction workshop demo: 
 ```
 cd istioinaction-workshop
 ./install-istioinaction-aoa.sh ${CONTEXT}
@@ -57,20 +57,6 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 #### argoCD credentials
 Access the argoCD UI at (http://localhost:8080) with the credentials `admin/solo.io`
 
-### gloo-mesh
-
-Register clusters (CLI Method):
-```
-SVC=$(kubectl --context ${MGMT} -n gloo-mesh get svc enterprise-networking -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
-meshctl cluster register --mgmt-context=${MGMT} --remote-context=${CLUSTER1} --relay-server-address=$SVC:9900 enterprise cluster1 --cluster-domain cluster.local
-meshctl cluster register --mgmt-context=${MGMT} --remote-context=${CLUSTER2} --relay-server-address=$SVC:9900 enterprise cluster2 --cluster-domain cluster.local
-```
-
-access gloo mesh dashboard at `http://localhost:8090`:
-```
-kubectl --context ${MGMT} port-forward -n gloo-mesh svc/dashboard 8090
-```
-
 ### access bookinfo on istio-ingressgateway
 Access the bookinfo app with the command below:
 ```
@@ -80,20 +66,7 @@ echo for cloud deployments:
 echo access bookinfo app here: "http://$(kubectl --context ${CONTEXT} -n istio-system get svc istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')/productpage"
 ```
 
-### access bookinfo app on gloo-edge
-```
-echo for kind deployments:
-echo access app here: "http://$(kubectl --context ${CONTEXT} -n gloo-system get svc gateway-proxy -o jsonpath='{.status.loadBalancer.ingress[0].ip}')/productpage"
-echo for cloud deployments:
-echo access app here: "http://$(kubectl --context ${CONTEXT} -n gloo-system get svc gateway-proxy -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')/productpage"
-```
-
-### port-forward for envoy admin API (gloo edge)
-```
-kubectl port-forward -n gloo-system deploy/gateway-proxy 19000:19000
-```
-
-### important curl commands
+### useful curl commands
 ```
 Header match:
 curl -H "Host: petstore.solo.io" -H "header1: value1" $(glooctl proxy url)/all-pets -v
