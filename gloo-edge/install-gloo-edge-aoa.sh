@@ -28,15 +28,3 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 
 # deploy virtualservices app-of-apps
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-edge/virtualservice/meta/meta-virtualservices.yaml
-
-# check bookinfo-v1 deployment status 
-../tools/wait-for-rollout.sh deployment productpage-v1 bookinfo-v1 5
-
-# check bookinfo-beta deployment status 
-../tools/wait-for-rollout.sh deployment productpage-v1 bookinfo-beta 5
-
-# get bookinfo URL
-echo for kind deployments:
-echo access app here: "http://$(kubectl --context ${CONTEXT} -n gloo-system get svc gateway-proxy -o jsonpath='{.status.loadBalancer.ingress[0].ip}')/productpage"
-echo for cloud deployments:
-echo access app here: "http://$(kubectl --context ${CONTEXT} -n gloo-system get svc gateway-proxy -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')/productpage"

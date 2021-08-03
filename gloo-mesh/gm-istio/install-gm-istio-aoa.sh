@@ -18,20 +18,20 @@ fi
 kubectl config use-context ${CONTEXT}
 
 # Install operator app-of-apps
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istio/operator/meta/meta-operator-app.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-mesh-istio/operator/meta/meta-operator-app.yaml
 
 # wait for important operators
 ### check istio-operator deployment status
 ../tools/wait-for-rollout.sh deployment istio-operator istio-operator 10
 
 # Install platform app-of-apps
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istio/platform/meta/meta-platform-app.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-mesh-istio/platform/meta/meta-platform-app.yaml
 
 ### check istio deployment status
 ../tools/wait-for-rollout.sh deployment istio-ingressgateway istio-system 10
 
 # Install frontend app-of-apps
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istio/frontend/meta/meta-frontend-app.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-mesh-istio/frontend/meta/meta-frontend-app.yaml
 
 # check sleep deployment status 
 ../tools/wait-for-rollout.sh deployment sleep default 5
