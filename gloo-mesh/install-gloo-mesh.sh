@@ -32,6 +32,12 @@ if [[ ${FEATURES} == "ee" ]]
   kubectl --context ${CONTEXT} create -f gloo-mesh-ee-helm.yaml
   ### check gloo-mesh deployment status
   ../tools/wait-for-rollout.sh deployment enterprise-networking gloo-mesh 10
+  ### install meshctl 
+  curl -sL https://run.solo.io/meshctl/install | sh -
+  export PATH=$HOME/.gloo-mesh/bin:$PATH
+  ### register current cluster istio deployment with gloo mesh using meshctl
+  SVC=$(kubectl --context ${CONTEXT} -n gloo-mesh get svc enterprise-networking -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+  meshctl cluster register --mgmt-context=${CONTEXT} --remote-context=${CONTEXT} --relay-server-address=$SVC:9900 enterprise cluster1 --cluster-domain cluster.local
 fi
 
 # for oss deploy
@@ -45,12 +51,3 @@ fi
 
 ### check to see if components are deployed
 kubectl --context ${CONTEXT} get pods -n gloo-mesh
-
-### install meshctl 
-curl -sL https://run.solo.io/meshctl/install | sh -
-export PATH=$HOME/.gloo-mesh/bin:$PATH
-
-### register current cluster istio deployment with gloo mesh using meshctl
-SVC=$(kubectl --context ${CONTEXT} -n gloo-mesh get svc enterprise-networking -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-meshctl cluster register --mgmt-context=${CONTEXT} --remote-context=${CONTEXT} --relay-server-address=$SVC:9900 enterprise cluster1 --cluster-domain cluster.local
-
