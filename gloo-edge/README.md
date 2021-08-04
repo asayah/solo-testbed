@@ -13,10 +13,26 @@ kubectl config rename-contexts <current_name> <new_name>
 export CONTEXT=<new_name>
 ```
 
-## install gloo edge
-Once argocd is installed, simply run the script below in order to deploy this argo [app-of-apps demo](https://github.com/ably77/solo-testbed-apps/tree/main/argo-apps/environments/gloo-edge) for gloo-edge
+## features (ee/oss)
+The install script requires you to define whether you want to install open source gloo-edge or gloo edge enterprise by providing an additional argument `ee/oss` to the install script. If choosing `oss` you can continue forward to the next section, but if you are selecting `ee` then follow the steps below to add your enterprise license key
+
+### adding the enterprise license key
+When deploying gloo-edge enterprise the script looks for a manifest located here: `non-aoa/gloo-edge-ee-helm.yaml`. We need to modify this manifest `license_key: <INSERT_LICENCE_KEY_HERE>` to a valid key.
+
+When complete, the manifest will look similar to below:
 ```
-./install-gloo-edge-aoa.sh ${CONTEXT}
+source:
+    chart: gloo-ee
+    helm:
+      values: |
+        license_key: ABCDEFG     
+    repoURL: http://storage.googleapis.com/gloo-ee-helm
+```
+
+## install gloo edge
+Once argocd is installed, simply run the script below in order to deploy this argo [app-of-apps demo](https://github.com/ably77/solo-testbed-apps/tree/main/argo-apps/environments/gloo-edge-oss) for gloo-edge-oss or this argo [app-of-apps demo](https://github.com/ably77/solo-testbed-apps/tree/main/argo-apps/environments/gloo-edge-ee) for gloo-edge-ee
+```
+./install-gloo-edge-aoa.sh ${CONTEXT} ${FEATURES}
 ```
 
 ### register a second cluster to gloo-fed

@@ -24,10 +24,10 @@ if [[ ${FEATURES} == "ee" ]]
   kubectl --context ${CONTEXT} create -f non-aoa/gloo-edge-ee-helm.yaml
 fi
 
-# deploy gloo-edge-ee app-of-apps
+# deploy gloo-edge app-of-apps
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-edge-${FEATURES}/edge/meta/meta-gloo-edge.yaml
 
-### check gloo-edge-ee deployment status
+### check gloo-edge deployment status
 ../tools/wait-for-rollout.sh deployment gateway gloo-system 10
 
 # deploy frontend app-of-apps
