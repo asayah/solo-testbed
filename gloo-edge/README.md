@@ -17,7 +17,7 @@ export CONTEXT=<new_name>
 The install script requires you to define whether you want to install open source gloo-edge or gloo edge enterprise by providing an additional argument `ee/oss` to the install script. If choosing `oss` you can continue forward to the next section, but if you are selecting `ee` then follow the steps below to add your enterprise license key
 
 ### adding the enterprise license key
-When deploying gloo-edge enterprise the script looks for a manifest located here: `non-aoa/gloo-edge-ee-helm.yaml`. We need to modify this manifest `license_key: <INSERT_LICENCE_KEY_HERE>` to a valid key.
+When deploying gloo-edge enterprise the script looks for a manifest located here: `non-aoa/gloo-edge-ee-helm.yaml`. We need to modify this manifest `license_key: <INSERT_LICENSE_KEY_HERE>` to a valid key.
 
 When complete, the manifest will look similar to below:
 ```
@@ -35,7 +35,14 @@ Once argocd is installed, simply run the script below in order to deploy this ar
 ./install-gloo-edge-aoa.sh ${CONTEXT} ${FEATURES}
 ```
 
+An example deploy would be as follows:
+```
+./install-gloo-edge-aoa.sh cluster1 ee
+```
+This command above will deploy gloo-edge ee in cluster1
+
 ### register a second cluster to gloo-fed
+If you have a second cluster you would like to register to the gloo-fed console
 ```
 export CLUSTER_NAME=
 export CONTEXT=

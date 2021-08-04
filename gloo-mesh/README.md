@@ -16,24 +16,30 @@ kubectl config rename-contexts <current_name> <new_name>
 export CONTEXT=<new_name>
 ```
 
-## install gloo mesh enterprise
-Once argocd is installed, deploy the `gloo-mesh-ee-helm.yaml` by following the steps below
+### adding the enterprise license key
+When deploying gloo-mesh enterprise the script looks for a manifest `gloo-mesh-ee-helm.yaml`. We need to modify this manifest `license_key: <INSERT_LICENSE_KEY_HERE>` to a valid key.
 
-**NOTE:** you will need to replace the license key variable in the `gloo-mesh-ee-helm.yaml` in order to proceed
+When complete, the manifest will look similar to below:
 ```
 source:
     chart: gloo-mesh-enterprise
     helm:
       values: |
-        licenseKey: <INSERT_LICENSE_KEY_HERE>
+        licenseKey: ABCDEFG
     repoURL: https://storage.googleapis.com/gloo-mesh-enterprise/gloo-mesh-enterprise
-    targetRevision: 1.1.0-beta26
 ```
 
-## deploy gloo-mesh-ee helm chart argo application
+## install gloo mesh
+Once argocd is installed, simply run the script below in order to deploy gloo-mesh oss or gloo-mesh ee
 ```
-kubectl --context ${CONTEXT} create -f gloo-mesh-ee-helm.yaml
+./install-gloo-mesh.sh ${CONTEXT} ${FEATURES}
 ```
+
+An example deploy would be as follows:
+```
+./install-gloo-mesh.sh cluster1 ee
+```
+This command above will deploy gloo-mesh ee in cluster1
 
 ### install meshctl
 ```
