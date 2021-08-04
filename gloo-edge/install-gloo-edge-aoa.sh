@@ -45,4 +45,8 @@ if [[ ${FEATURES} == "ee" ]]
   glooctl cluster register --cluster-name ${CONTEXT} --remote-context ${CONTEXT} --remote-namespace gloo-system
   # echo complete
   echo gloo-fed-ee installation complete
+  # wait for keycloak to deploy
+  ../tools/wait-for-rollout.sh deployment keycloak default 10
+  # set up keycloak
+  ./keycloak-setup.sh
 fi
