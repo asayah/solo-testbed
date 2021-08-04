@@ -21,19 +21,25 @@ cd argocd
 install-argocd.sh ${CONTEXT}
 ```
 
+### script arguments
+There are a few argument options you have when deploying the scripts below
+```
+CONTEXT = name of the cluster context you are deploying to
+FEATURES = `oss` or `ee` where applicable
+```
+
 ## Deploy argoCD demos
 
 To install gloo-edge demo:
 ```
 cd gloo-edge
-./install-gloo-edge-aoa.sh ${CONTEXT}
+./install-gloo-edge-aoa.sh ${CONTEXT} ${FEATURES}
 ```
 
 To install gloo-mesh demo:
 ```
 cd gloo-mesh
-./install-gloo-mesh-oss.sh ${CONTEXT}
-./install-gloo-mesh-ee.sh ${CONTEXT}
+./install-gloo-mesh.sh ${CONTEXT} ${FEATURES}
 ```
 
 To install upstream istio demo:
