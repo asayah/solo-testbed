@@ -25,6 +25,7 @@ if [[ ${FEATURES} == "ee" ]]
   if [[ ${LICENSE} == "<INSERT_LICENSE_KEY_HERE>" ]]
     then
     echo "no license key provided, please replace <INSERT_LICENSE_KEY_HERE> value in the non-aoa/gloo-edge-ee-helm.yaml to continue"
+    exit 1
   fi   
   # deploy gloo-edge-ee argo-app (has license key in manifest so is sensitive)
   kubectl --context ${CONTEXT} create -f non-aoa/gloo-edge-ee-helm.yaml
