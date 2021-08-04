@@ -17,8 +17,11 @@ fi
 # use context
 kubectl config use-context ${CONTEXT}
 
+# deploy gloo-edge-ee-secret (license key)
+kubectl --context ${CONTEXT} create -f gloo-edge-ee-secret.yaml
+
 # deploy gloo-edge-ee-helm argo application
-kubectl --context ${CONTEXT} create -f gloo-mesh-ee-helm.yaml
+kubectl --context ${CONTEXT} create -f gloo-edge-ee-helm.yaml
 
 ### check gloo-edge-ee deployment status
 until kubectl --context ${CONTEXT} get ns gloo-system

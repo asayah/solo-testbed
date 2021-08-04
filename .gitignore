@@ -2,4 +2,5 @@ testing/install-knative.sh
 old
 gloo-edge/gloo-edge-ee-helm-wkey.yaml
 gloo-edge/gloo-fed-ee-helm-wkey.yaml
+gloo-edge/gloo-edge-ee-secret-wkey.yaml
 gloo-mesh/gloo-mesh-ee-helm-wkey.yaml

@@ -18,6 +18,9 @@ fi
 # use context
 kubectl config use-context ${CONTEXT}
 
+# deploy gloo-edge-ee-secret (license key)
+kubectl --context ${CONTEXT} create -f gloo-edge-ee-secret.yaml
+
 # deploy gloo-edge app-of-apps
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-edge/edge/meta/meta-gloo-edge.yaml
 
