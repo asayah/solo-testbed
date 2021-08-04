@@ -13,9 +13,11 @@ spec:
   source:
     chart: gloo-ee
     helm:
+      valueFiles:
+      - values.yaml
       # expects a secret in the gloo-system namespace to be precreated so its not here in plaintext
       values: |
-        create_license_secret: false    
+        create_license_secret: true    
     repoURL: http://storage.googleapis.com/gloo-ee-helm
     targetRevision: 1.7.7
   syncPolicy:
