@@ -18,25 +18,25 @@ fi
 # use context
 kubectl config use-context ${CONTEXT}
 
-# deploy gloo-edge-ee-secret (license key)
-kubectl --context ${CONTEXT} create -f gloo-edge-ee-secret.yaml
+# deploy gloo-edge-ee argo-app (has license key in manifest so is sensitive)
+kubectl --context ${CONTEXT} create -f non-aoa/gloo-edge-ee-helm.yaml
 
-# deploy gloo-edge app-of-apps
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-edge/edge/meta/meta-gloo-edge.yaml
+# deploy gloo-edge-ee app-of-apps
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-edge-ee/edge/meta/meta-gloo-edge.yaml
 
-### check gloo-edge deployment status
+### check gloo-edge-ee deployment status
 ../tools/wait-for-rollout.sh deployment gateway gloo-system 10
 
 # deploy frontend app-of-apps
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-edge/frontend/meta/meta-frontend-apps.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-edge-ee/frontend/meta/meta-frontend-apps.yaml
 
 # deploy virtualservices app-of-apps
-kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-edge/virtualservice/meta/meta-virtualservices.yaml
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-edge-ee/virtualservice/meta/meta-virtualservices.yaml
 
 if [[ $GLOO_FED == "fed" ]]
   then 
   # deploy gloo-fed-ee
-  kubectl --context ${CONTEXT} create -f gloo-fed-ee-helm.yaml
+  kubectl --context ${CONTEXT} create -f non-aoa/gloo-fed-ee-helm.yaml
   # wait for gloo-fed-ee to deploy
   ../tools/wait-for-rollout.sh deployment gloo-fed gloo-system 10
   # register cluster
