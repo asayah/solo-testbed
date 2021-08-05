@@ -25,7 +25,7 @@ install-argocd.sh ${CONTEXT}
 There are a few argument options you have when deploying the scripts below
 ```
 CONTEXT = name of the cluster context you are deploying to
-FEATURES = `oss` or `ee` where applicable
+FEATURES = enterprise edition features such as `fed` or `nofed` where applicable
 ```
 
 ## Deploy argoCD demos
@@ -33,7 +33,12 @@ FEATURES = `oss` or `ee` where applicable
 To install gloo-edge demo:
 ```
 cd gloo-edge
-./install-gloo-edge-aoa.sh ${CONTEXT} ${FEATURES}
+
+# For gloo edge enterprise
+./install-gloo-edge-enterprise-aoa.sh ${CONTEXT} ${FEATURES}
+
+# For gloo edge oss
+./install-gloo-edge-oss-aoa.sh ${CONTEXT}
 ```
 
 To install gloo-mesh demo:
