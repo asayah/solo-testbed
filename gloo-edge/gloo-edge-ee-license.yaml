@@ -1,0 +1,12 @@
+apiVersion: v1
+data:
+  license-key: <INSERT_BASE_64_ENCODED_LICENSE_HERE>
+kind: Secret
+metadata:
+  labels:
+    app: gloo
+    app.kubernetes.io/instance: gloo-edge-ee-helm-customvalues
+    gloo: license
+  name: license
+  namespace: gloo-system
+type: Opaque

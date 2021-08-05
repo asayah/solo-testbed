@@ -18,17 +18,18 @@ fi
 # use context
 kubectl config use-context ${CONTEXT}
 
+# check for ee license
 if [[ ${FEATURES} == "ee" ]]
   then
   # check to see if license key has been provided
-  LICENSE=$(cat non-aoa/gloo-edge-ee-helm.yaml | grep license_key: | awk '{ print $2 }')
-  if [[ ${LICENSE} == "<INSERT_LICENSE_KEY_HERE>" ]]
+  LICENSE=$(cat gloo-edge-ee-license.yaml | grep license-key: | awk '{ print $2 }')
+  if [[ ${LICENSE} == "<INSERT_BASE_64_ENCODED_LICENSE_HERE>" ]]
     then
-    echo "no license key provided, please replace <INSERT_LICENSE_KEY_HERE> value in the non-aoa/gloo-edge-ee-helm.yaml to continue"
+    echo "no license key provided, please replace <INSERT_BASE_64_ENCODED_LICENSE_HERE> value in the gloo-edge-ee-license.yaml to continue"
     exit 1
   fi   
   # deploy gloo-edge-ee argo-app (has license key in manifest so is sensitive)
-  kubectl --context ${CONTEXT} create -f non-aoa/gloo-edge-ee-helm.yaml
+  kubectl --context ${CONTEXT} create -f gloo-edge-ee-license.yaml
 fi
 
 # deploy gloo-edge app-of-apps
