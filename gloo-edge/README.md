@@ -42,12 +42,22 @@ An example deploy would be as follows:
 This command above will deploy gloo-edge ee in cluster1
 
 ### register a second cluster to gloo-fed
-If you have a second cluster you would like to register to the gloo-fed console
+If you have a second cluster you would like to register to the gloo-fed console, follow the steps below
+
+#### IMPORTANT: set correct variables for contexts
+For example
 ```
-export CLUSTER_NAME=
-export CONTEXT=
-glooctl cluster register --cluster-name ${CLUSTER_NAME} --remote-context ${CONTEXT} --remote-namespace gloo-system
+export MGMT_CONTEXT=cluster1
+export REMOTE_CONTEXT=cluster2
 ```
+
+Then register the remote cluster
+```
+kubectl config use-context ${MGMT_CONTEXT}
+glooctl cluster register --cluster-name ${REMOTE_CONTEXT} --remote-context ${REMOTE_CONTEXT} --remote-namespace gloo-system
+```
+
+**Note:** The glooctl command below needs to be run where the gloo fed management plane exists
 
 ### port-forward for gloo-fed console
 ```
