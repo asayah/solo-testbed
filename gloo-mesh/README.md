@@ -64,14 +64,14 @@ CURRENT   NAME       CLUSTER      AUTHINFO     NAMESPACE
 
 So my context variables would be:
 ```
-export MGMT=cluster1
-export CLUSTER2=cluster2
+export MGMT_CONTEXT=cluster1
+export REMOTE_CONTEXT=cluster2
 ```
 
 Then run:
 ```
-SVC=$(kubectl --context ${MGMT} -n gloo-mesh get svc enterprise-networking -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-meshctl cluster register --mgmt-context=${MGMT} --remote-context=${CLUSTER2} --relay-server-address=$SVC:9900 enterprise cluster2 --cluster-domain cluster.local
+SVC=$(kubectl --context ${MGMT_CONTEXT} -n gloo-mesh get svc enterprise-networking -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+meshctl cluster register --mgmt-context=${MGMT_CONTEXT} --remote-context=${REMOTE_CONTEXT} --relay-server-address=$SVC:9900 enterprise ${REMOTE_CONTEXT} --cluster-domain cluster.local
 ```
 
 ### access gloo mesh dashboard
