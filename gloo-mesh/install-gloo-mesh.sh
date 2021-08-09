@@ -37,7 +37,7 @@ if [[ ${FEATURES} == "ee" ]]
   export PATH=$HOME/.gloo-mesh/bin:$PATH
   ### register current cluster istio deployment with gloo mesh using meshctl
   SVC=$(kubectl --context ${CONTEXT} -n gloo-mesh get svc enterprise-networking -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-  meshctl cluster register --mgmt-context=${CONTEXT} --remote-context=${CONTEXT} --relay-server-address=$SVC:9900 enterprise cluster1 --cluster-domain cluster.local
+  meshctl cluster register --mgmt-context=${CONTEXT} --remote-context=${CONTEXT} --relay-server-address=$SVC:9900 enterprise ${CONTEXT} --cluster-domain cluster.local
 fi
 
 # for oss deploy
