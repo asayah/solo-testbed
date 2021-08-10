@@ -16,7 +16,7 @@ spec:
       values: |
         licenseKey: <INSERT_LICENSE_KEY_HERE>
     repoURL: https://storage.googleapis.com/gloo-mesh-enterprise/gloo-mesh-enterprise
-    targetRevision: 1.1.0-beta26
+    targetRevision: 1.1.0-beta28
   syncPolicy:
     automated:
       prune: true
