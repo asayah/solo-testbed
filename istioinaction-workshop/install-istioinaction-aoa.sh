@@ -32,7 +32,7 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 ../tools/wait-for-rollout.sh deployment istiod-1-9-5 istio-system 10
 
 # check kube grafana deployment status as this usually completes last
-../tools/wait-for-rollout.sh deployment prometheus-operator-helm-grafana prometheus 10
+../tools/wait-for-rollout.sh deployment prometheus-operator-helm-customvalues-grafana prometheus 10
 
 # Install frontend app-of-apps
 kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/istioinaction/frontend/meta/meta-frontend-app.yaml
