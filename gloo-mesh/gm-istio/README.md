@@ -18,3 +18,19 @@ Once argocd is installed, simply run the script below in order to deploy this ar
 ```
 ./install-gm-istio-aoa.sh ${CONTEXT}
 ```
+
+## port-forward commands
+Grafana:
+```
+kubectl port-forward svc/grafana -n istio-system 3000:3000
+```
+
+Kiali:
+```
+kubectl port-forward deployment/kiali -n istio-system 20001:20001
+```
+
+Gloo Mesh:
+```
+kubectl port-forward svc/dashboard -n gloo-mesh 8090:8090
+```
