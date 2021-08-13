@@ -36,4 +36,8 @@ kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/
 # check sleep deployment status 
 ../../tools/wait-for-rollout.sh deployment sleep default 5
 
+# Install virtualservice app-of-apps
+kubectl --context ${CONTEXT} create -f https://raw.githubusercontent.com/ably77/solo-testbed-apps/main/argo-apps/environments/gloo-mesh-istio/virtualservices/meta/meta-istio-virtualservices.yaml
+
+
 echo done
