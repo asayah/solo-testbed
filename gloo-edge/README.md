@@ -32,14 +32,14 @@ source:
 ## install gloo edge
 Once argocd is installed, simply run the script below in order to deploy this argo [app-of-apps demo](https://github.com/ably77/solo-testbed-apps/tree/main/argo-apps/environments/gloo-edge-oss) for gloo-edge-oss or this argo [app-of-apps demo](https://github.com/ably77/solo-testbed-apps/tree/main/argo-apps/environments/gloo-edge-ee) for gloo-edge-ee
 ```
-./install-gloo-edge-aoa.sh ${CONTEXT} ${FEATURES}
+./install-gloo-edge-enterprise-aoa.sh ${CONTEXT} ${FEATURES}
 ```
 
 An example deploy would be as follows:
 ```
-./install-gloo-edge-aoa.sh cluster1 ee
+./install-gloo-edge-aoa.sh cluster1 fed
 ```
-This command above will deploy gloo-edge ee in cluster1
+This command above will deploy gloo-edge ee in cluster1 with gloo-fed enabled
 
 ### register a second cluster to gloo-fed
 If you have a second cluster you would like to register to the gloo-fed console, follow the steps below
